@@ -13,7 +13,7 @@ pip install -r requirements.txt
 Запустите бота
 
 ```sh
-python main.py
+python telegram_bot.py
 ```
 
 ## Переменные окружения
