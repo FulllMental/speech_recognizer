@@ -9,11 +9,23 @@
 ```sh
 pip install -r requirements.txt
 ```
-
-Запустите бота
+- Создайте новый проект на [Dialogflow](https://dialogflow.cloud.google.com)
+- Создайте [агента](https://cloud.google.com/dialogflow/es/docs/quick/build-agent) для DialogFlow 
+- Добавьте необходимые фразы (Intents) на которые должен реагировать бот
+- Запустите бота
 
 ```sh
 python telegram_bot.py
+```
+для запуска VK бота:
+```sh
+python vk_bot.py
+```
+
+Чтобы обучить бота фразам из `.json` файла добавьте в корневой каталог файл с фразами, с названием `new_phrases.json`
+после чего запустите скрипт:
+```sh
+python add_intents.py
 ```
 
 ## Переменные окружения
@@ -22,6 +34,8 @@ python telegram_bot.py
 
 Доступные переменные:
 - `TELEGRAM_BOT_TOKEN` — Уникальный ключ для привязки к вашему боту
+- `VK_GROUP_TOKEN` — Токен для доступа бота к сообщениям вашего сообщества в VK
+- `PROJECT_ID` — ID вашего проекта на [Dialogflow](https://dialogflow.cloud.google.com)
 
 ## Цели проекта
 

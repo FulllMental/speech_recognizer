@@ -60,7 +60,6 @@ def list_intents(project_id):
 
 if __name__ == '__main__':
     load_dotenv()
-    telegram_token = os.getenv('GOOGLE_API_KEY')
     project_id = os.getenv('PROJECT_ID')
     with open('new_phrases.json', 'r', encoding='utf-8') as new_phrases:
         phrases = new_phrases.read()
