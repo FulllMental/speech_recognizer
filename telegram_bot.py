@@ -4,7 +4,7 @@ import os
 import telegram
 from dotenv import load_dotenv
 from google.cloud import dialogflow
-from telegram import Update, error
+from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
 
 logging.basicConfig(
@@ -22,11 +22,9 @@ def reply(update: Update, context: CallbackContext) -> None:
     project_id = os.getenv('PROJECT_ID')
     session_id = update.effective_user
     text = update.message.text
-    try:
-        answer = detect_intent_texts(project_id, session_id, text, 'en-US')
-        update.message.reply_text(answer)
-    except error.BadRequest:
-        update.message.reply_text('К сожалению, я не понимаю вас...')
+    answer = detect_intent_texts(project_id, session_id, text, 'ru')
+    if not answer['is_fallback']:
+        update.message.reply_text(answer['fulfillment_text'])
 
 
 def main(telegram_token) -> None:
@@ -46,7 +44,8 @@ def detect_intent_texts(project_id, session_id, text, language_code):
     response = session_client.detect_intent(
         request={'session': session, 'query_input': query_input}
     )
-    return response.query_result.fulfillment_text
+    return {'is_fallback': response.query_result.intent.is_fallback,
+            'fulfillment_text': response.query_result.fulfillment_text}
 
 
 if __name__ == '__main__':
