@@ -1,12 +1,11 @@
+import logging
 import os
 
+import telegram
 from dotenv import load_dotenv
-import logging
-
+from google.cloud import dialogflow
 from telegram import Update, error
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-from google.cloud import dialogflow
-
 
 logging.basicConfig(
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO
@@ -53,4 +52,10 @@ def detect_intent_texts(project_id, session_id, text, language_code):
 if __name__ == '__main__':
     load_dotenv()
     telegram_token = os.getenv('TELEGRAM_BOT_TOKEN')
-    main(telegram_token)
+    user_id = os.getenv('USER_ID')
+    try:
+        main(telegram_token)
+    except Exception as err:
+        error_text = 'Telegram_Bot stopped working with an error...'
+        bot = telegram.Bot(token=telegram_token)
+        bot.send_message(chat_id=user_id, text=error_text)

@@ -9,9 +9,16 @@
 ```sh
 pip install -r requirements.txt
 ```
+Залогиньтесь gcloud auth application-default login
+
 - Создайте новый проект на [Dialogflow](https://dialogflow.cloud.google.com)
 - Создайте [агента](https://cloud.google.com/dialogflow/es/docs/quick/build-agent) для DialogFlow 
 - Добавьте необходимые фразы (Intents) на которые должен реагировать бот
+- Установите на сервер [cloud.google.cli](https://cloud.google.com/sdk/docs/install#deb) и выберете нужный проект
+- Залогиньтесь 
+```sh
+gcloud auth application-default login
+```
 - Запустите бота
 
 
@@ -40,6 +47,7 @@ python add_intents.py
 - `TELEGRAM_BOT_TOKEN` — Уникальный ключ для привязки к вашему боту
 - `VK_GROUP_TOKEN` — Токен для доступа бота к сообщениям вашего сообщества в VK
 - `PROJECT_ID` — ID вашего проекта на [Dialogflow](https://dialogflow.cloud.google.com)
+- `USER_ID` - ID вышего профиля в Telegram для получения сообщений о ошибках бота (можно узнать [тут](https://t.me/getmyid_bot))
 
 ## Цели проекта
 
