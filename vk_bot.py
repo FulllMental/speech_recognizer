@@ -4,21 +4,9 @@ import random
 import telegram
 import vk_api
 from dotenv import load_dotenv
-from google.cloud import dialogflow
 from vk_api.longpoll import VkLongPoll, VkEventType
 
-
-def detect_intent_texts(project_id, session_id, text, language_code):
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(project_id, session_id)
-    text_input = {'text': text, 'language_code': language_code}
-    query_input = dialogflow.QueryInput(text=text_input)
-
-    response = session_client.detect_intent(
-        request={'session': session, 'query_input': query_input}
-    )
-    return {'is_fallback': response.query_result.intent.is_fallback,
-            'fulfillment_text': response.query_result.fulfillment_text}
+from dialogflow_handler import detect_intent_texts
 
 
 def reply(event, project_id, vk_api):
@@ -34,9 +22,9 @@ def reply(event, project_id, vk_api):
 if __name__ == '__main__':
     load_dotenv()
     vk_group_token = os.getenv('VK_GROUP_TOKEN')
-    telegram_token = os.getenv('TELEGRAM_BOT_TOKEN')
+    telegram_token = os.getenv('TG_BOT_TOKEN')
     project_id = os.getenv('PROJECT_ID')
-    user_id = os.getenv('USER_ID')
+    tg_user_id = os.getenv('TG_USER_ID')
     try:
         vk_session = vk_api.VkApi(token=vk_group_token)
         vk_api = vk_session.get_api()
@@ -47,4 +35,4 @@ if __name__ == '__main__':
     except Exception as err:
         error_text = 'VK_Bot stopped working with an error...'
         bot = telegram.Bot(token=telegram_token)
-        bot.send_message(chat_id=user_id, text=error_text)
+        bot.send_message(chat_id=tg_user_id, text=error_text)
