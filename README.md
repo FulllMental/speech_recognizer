@@ -1,13 +1,17 @@
 # Распознователь речи
 
 Данный репозиторий представляет собой диалогового бота, позволяющего распознавать текст в свободной форме и отвечать на
-вопросы одним из заготовленных ответов с использованием Telegram:
+вопросы одним из заготовленных ответов через Telegram:
 
-<img src="https://media.giphy.com/media/qriDL5mF5l2aFyQSqp/giphy.gif" width="350" height="400" />
+![tg_bot_2](https://github.com/FulllMental/speech_recognizer/assets/104234625/6290ca16-dba2-4b8f-94c6-bd15679273bc)
 
-и/или Vk:
 
-<img src="https://media4.giphy.com/media/eY26j2qp39tnP7LwCu/giphy.gif" width="350" height="400" />
+и/или через VK:
+
+
+![vk_bot](https://github.com/FulllMental/speech_recognizer/assets/104234625/ebaf8abe-3c4b-4a87-afba-f751371557c9)
+
+
 ## Запуск локально
 
 Для запуска сайта вам понадобится Python третьей версии.
@@ -15,7 +19,7 @@
 Скачайте код с GitHub. Установите зависимости:
 
 ```sh
-pip install -r requirements1.txt
+pip install -r requirements.txt
 ```
 Залогиньтесь gcloud auth application-default login
 
@@ -39,6 +43,12 @@ python telegram_bot.py
 python vk_bot.py
 ```
 
+Чтобы обучить бота фразам из `.json` файла добавьте в корневой каталог файл с фразами, с названием `new_phrases.json`
+после чего запустите скрипт:
+```sh
+python add_intents.py
+```
+
 ## Переменные окружения
 
 Для запуска бота вам необходимо его зарегистрировать его у [Отца ботов](https://telegram.me/BotFather)
@@ -46,16 +56,10 @@ python vk_bot.py
 Для VK вам необходимо в настройках вашего сообщества получить ключ API во вкладке "Работа с API" 
 
 Доступные переменные:
-- `TG_BOT_TOKEN` — Уникальный ключ для привязки к вашему боту
+- `TELEGRAM_BOT_TOKEN` — Уникальный ключ для привязки к вашему боту
 - `VK_GROUP_TOKEN` — Токен для доступа бота к сообщениям вашего сообщества в VK
 - `PROJECT_ID` — ID вашего проекта на [Dialogflow](https://dialogflow.cloud.google.com)
-- `TG_USER_ID` - ID вашего профиля в Telegram для получения сообщений о ошибках бота (можно узнать [тут](https://t.me/getmyid_bot))
-- `NEW_PHRASES_JSON` - Путь до `.json` файла с фразами для обучения DialogFlow
-
-Для запуска обучения из файла, после присвоения всех значений, запустите скрипт:
-```sh
-python add_intents.py
-```
+- `USER_ID` - ID вышего профиля в Telegram для получения сообщений о ошибках бота (можно узнать [тут](https://t.me/getmyid_bot))
 
 ## Цели проекта
 
